@@ -33,4 +33,8 @@ resource azbicepas 'Microsoft.Web/sites@2021-01-15' = {
     serverFarmId: resourceId('Microsoft.Web/serverfarms','azbicep-dev-us-asp1')
     // Set the serverFarmId property to the resource ID of the App Service Plan created earlier
   }
+
+  dependsOn:[
+    appServicePlan
+  ]
 }
