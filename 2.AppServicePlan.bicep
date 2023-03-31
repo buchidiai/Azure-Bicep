@@ -58,8 +58,8 @@ resource azbicepwebapp1appsetting 'Microsoft.Web/sites/config@2022-03-01' = {
   properties: {
     appSettings: [ // Array of key-value pairs representing app settings
       {
-        name: 'key1' // Name of the app setting
-        value: 'value1' // Value of the app setting
+        name: 'APPINSIGHTS_INSTRUMENTATIONKEY' // Name of the app setting
+        value: azbicepappinsights.properties.InstrumentationKey // Value of the app setting
       }
       {
         name: 'key2'
