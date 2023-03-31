@@ -14,7 +14,7 @@ var webAppName = 'azbicep-${environmentName}-us-wapp1'
 var appInsightsName = 'azbicep-${environmentName}-us-wapp1-ai'
 
 // Create an Azure App Service Plan with the name based on the environment name
-resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
+resource azbicepasp 'Microsoft.Web/serverfarms@2022-03-01' = {
 
   // Set the name of the App Service Plan
   name: appServicePlanName
@@ -46,9 +46,29 @@ resource azbicepas 'Microsoft.Web/sites@2021-01-15' = {
 
   // Specify that this resource depends on the appServicePlan resource
   dependsOn:[
-    appServicePlan
+    azbicepasp
   ]
 }
+
+
+// Define an Azure Resource Manager template for configuring the app settings of an Azure Web App resource
+resource azbicepwebapp1appsetting 'Microsoft.Web/sites/config@2022-03-01' = {
+  name: 'web' // Name of the Web App resource
+  parent: azbicepas // Parent resource (the Web App resource group)
+  properties: {
+    appSettings: [ // Array of key-value pairs representing app settings
+      {
+        name: 'key1' // Name of the app setting
+        value: 'value1' // Value of the app setting
+      }
+      {
+        name: 'key2'
+        value: 'value2'
+      }
+    ]
+  }
+}
+
 
 // Create an Azure Application Insights instance with the name based on the environment name
 resource azbicepappinsights 'Microsoft.Insights/components@2020-02-02' = {
